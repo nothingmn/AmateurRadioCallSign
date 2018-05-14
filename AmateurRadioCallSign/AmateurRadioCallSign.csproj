@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Rob Chartier</Authors>
+    <Description>A basic .NET Standard 2.x library for Call Sign Data for Canada and the US.</Description>
+    <PackageProjectUrl>https://github.com/nothingmn/amateurradiocallsign</PackageProjectUrl>
+    <PackageTags>call signs, call, ham, amateur radio, canada, us, usa</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="callsigns.canada.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="callsigns.canada.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+</Project>
