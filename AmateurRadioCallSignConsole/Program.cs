@@ -24,12 +24,7 @@ namespace AmateurRadioCallSignConsole
                     {
                         foreach (var club in dataManager.CanadianClubs)
                         {
-                            Console.WriteLine($"--------Club--------");
-                            Console.WriteLine($"       Name:{club.Value.ClubName}");
-                            Console.WriteLine($"    Address:{club.Value.ClubAddress}");
-                            Console.WriteLine($"       City:{club.Value.ClubCity}");
-                            Console.WriteLine($"Postal Code:{club.Value.ClubPostalCode}");
-                            Console.WriteLine($"   Province:{club.Value.ClubProvince}");
+                            DumpClub(club.Value);
                         }
                     }
                     else
@@ -39,12 +34,7 @@ namespace AmateurRadioCallSignConsole
                         {
                             foreach (var club in from c in dataManager.CanadianClubs where c.Value.ClubCity.Equals(rightSide, StringComparison.InvariantCultureIgnoreCase) || c.Value.ClubPostalCode.Equals(rightSide, StringComparison.InvariantCultureIgnoreCase) select c)
                             {
-                                Console.WriteLine($"--------Club--------");
-                                Console.WriteLine($"       Name:{club.Value.ClubName}");
-                                Console.WriteLine($"    Address:{club.Value.ClubAddress}");
-                                Console.WriteLine($"       City:{club.Value.ClubCity}");
-                                Console.WriteLine($"Postal Code:{club.Value.ClubPostalCode}");
-                                Console.WriteLine($"   Province:{club.Value.ClubProvince}");
+                                DumpClub(club.Value);
                             }
                         }
                     }
@@ -59,18 +49,18 @@ namespace AmateurRadioCallSignConsole
                     //slower than a lookup by callsign, but useful for scanning over the data
                     var many = dataManager.FindAll(callSign =>
                         callSign.CallSign.Equals(sign, StringComparison.InvariantCultureIgnoreCase) ||
-                        callSign.Address.Equals(sign, StringComparison.InvariantCultureIgnoreCase) ||
-                        callSign.City.Equals(sign, StringComparison.InvariantCultureIgnoreCase) ||
-                        callSign.ClubName.Equals(sign, StringComparison.InvariantCultureIgnoreCase) ||
-                        callSign.ClubAddress.Equals(sign, StringComparison.InvariantCultureIgnoreCase) ||
-                        callSign.ClubCity.Equals(sign, StringComparison.InvariantCultureIgnoreCase) ||
-                        callSign.ClubPostalCode.Equals(sign, StringComparison.InvariantCultureIgnoreCase) ||
-                        callSign.ClubProvince.Equals(sign, StringComparison.InvariantCultureIgnoreCase) ||
-                        callSign.SecondClubName.Equals(sign, StringComparison.InvariantCultureIgnoreCase) ||
-                        callSign.GivenNames.Equals(sign, StringComparison.InvariantCultureIgnoreCase) ||
-                        callSign.PostalCode.Equals(sign, StringComparison.InvariantCultureIgnoreCase) ||
-                        callSign.Province.Equals(sign, StringComparison.InvariantCultureIgnoreCase) ||
-                        callSign.SurName.Equals(sign, StringComparison.InvariantCultureIgnoreCase)
+                        (!string.IsNullOrEmpty(callSign.Address) && callSign.Address.Equals(sign, StringComparison.InvariantCultureIgnoreCase)) ||
+                        (!string.IsNullOrEmpty(callSign.City) && callSign.City.Equals(sign, StringComparison.InvariantCultureIgnoreCase)) ||
+                        (!string.IsNullOrEmpty(callSign.ClubName) && callSign.ClubName.Equals(sign, StringComparison.InvariantCultureIgnoreCase)) ||
+                        (!string.IsNullOrEmpty(callSign.ClubAddress) && callSign.ClubAddress.Equals(sign, StringComparison.InvariantCultureIgnoreCase)) ||
+                        (!string.IsNullOrEmpty(callSign.ClubCity) && callSign.ClubCity.Equals(sign, StringComparison.InvariantCultureIgnoreCase)) ||
+                        (!string.IsNullOrEmpty(callSign.ClubPostalCode) && callSign.ClubPostalCode.Equals(sign, StringComparison.InvariantCultureIgnoreCase)) ||
+                        (!string.IsNullOrEmpty(callSign.ClubProvince) && callSign.ClubProvince.Equals(sign, StringComparison.InvariantCultureIgnoreCase)) ||
+                        (!string.IsNullOrEmpty(callSign.SecondClubName) && callSign.SecondClubName.Equals(sign, StringComparison.InvariantCultureIgnoreCase)) ||
+                        (!string.IsNullOrEmpty(callSign.GivenNames) && callSign.GivenNames.Equals(sign, StringComparison.InvariantCultureIgnoreCase)) ||
+                        (!string.IsNullOrEmpty(callSign.PostalCode) && callSign.PostalCode.Equals(sign, StringComparison.InvariantCultureIgnoreCase)) ||
+                        (!string.IsNullOrEmpty(callSign.Province) && callSign.Province.Equals(sign, StringComparison.InvariantCultureIgnoreCase)) ||
+                        (!string.IsNullOrEmpty(callSign.SurName) && callSign.SurName.Equals(sign, StringComparison.InvariantCultureIgnoreCase))
                     );
                     Console.WriteLine(new string('=', 10));
                     Console.WriteLine("Search Results");
@@ -93,6 +83,16 @@ namespace AmateurRadioCallSignConsole
                 }
                 Console.WriteLine(new string('-', 10));
             }
+        }
+
+        private static void DumpClub(AmateurRadioCallSign.AmateurRadioCallSign club)
+        {
+            Console.WriteLine($"--------Club--------");
+            Console.WriteLine($"       Name:{club.ClubName}");
+            Console.WriteLine($"    Address:{club.ClubAddress}");
+            Console.WriteLine($"       City:{club.ClubCity}");
+            Console.WriteLine($"Postal Code:{club.ClubPostalCode}");
+            Console.WriteLine($"   Province:{club.ClubProvince}");
         }
 
         private static void OutputSingle(AmateurRadioCallSign.AmateurRadioCallSign sign)

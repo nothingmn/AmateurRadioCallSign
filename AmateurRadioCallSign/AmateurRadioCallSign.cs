@@ -1,7 +1,11 @@
-﻿namespace AmateurRadioCallSign
+﻿using System;
+
+namespace AmateurRadioCallSign
 {
     public class AmateurRadioCallSign
     {
+        public string _id { get; set; } = Guid.NewGuid().ToString();
+
         public string CallSign { get; set; }
         public string GivenNames { get; set; }
         public string SurName { get; set; }
@@ -16,10 +20,11 @@
         public string ClubCity { get; set; }
         public string ClubProvince { get; set; }
         public string ClubPostalCode { get; set; }
+        public string Country { get; set; }
 
         public override string ToString()
         {
-            return $"{CallSign} {GivenNames} {SurName} {Address} {City} {Province} {PostalCode} {Qualifications}";
+            return $"{CallSign} {GivenNames} {SurName} {Address} {City} {Province} {PostalCode} {Country} {Qualifications}";
         }
     }
 }

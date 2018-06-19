@@ -9,11 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="callsigns.canada.json" />
+    <None Remove="callsigns.zip" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="callsigns.canada.json" />
+    <EmbeddedResource Include="callsigns.zip" />
   </ItemGroup>
 
   <ItemGroup>
